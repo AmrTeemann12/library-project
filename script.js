@@ -1,10 +1,11 @@
 const myLibrary = [];
 const libraryElem = document.querySelector('.library');
 const addBookBtn = document.querySelector('.add-book');
-const closeDialog = document.querySelector('#close-dialog');
+const closeDialog = document.querySelector('.close-dialog');
 const dialog = document.querySelector('#new-book');
 const form = document.querySelector('#book-form');
-const errorDiv = document.querySelector('.error-message');
+const errorDiv = document.querySelector('.error-container');
+const errorPara = document.querySelector('.error-message');
 
 function Book(title, author, pages, status) {
     if(!new.target){
@@ -60,7 +61,9 @@ function displayBooks (library){
         statusElem.classList.add('status-btn');
         statusElem.classList.add(`${book.status.split(' ').join('-')}`)
         removeBtn.classList.add('remove-btn');
-
+        
+        removeBtn.setAttribute('title', 'delete the book permanently')
+        statusElem.setAttribute('title', 'reading status')
 
         statusElem.addEventListener('click', () => {
             let newStatus;
@@ -135,20 +138,15 @@ addBookBtn.addEventListener('click', (e) => {
 })
 
 function resetForm (){
-    errorDiv.innerHTML = '';
-    document.querySelector('#title').value = '';
-    document.querySelector('#author').value = '';
-    document.querySelector('#pages').value = '';
-    const defaultRadio = document.querySelector('#not-started');
-    defaultRadio.checked = true;   
+    errorDiv.classList.remove('active')
+    errorPara.textContent = '';
+    form.reset(); 
 }
 
 function showError (message){
-    errorDiv.innerHTML = '';
-    
-    const errorText = document.createElement('p')
-    errorText.textContent = message;
-    errorDiv.appendChild(errorText);
+    errorDiv.classList.add('active')
+    errorPara.textContent = '';
+    errorPara.textContent = message;
 }
 
 const book1 = new Book('Tea Types and Methods', 'Tea Sage', 212, 'finished');
@@ -159,3 +157,4 @@ addBookToLibrary(book1);
 addBookToLibrary(book2);
 addBookToLibrary(book3);
 displayBooks(myLibrary);
+resetForm()

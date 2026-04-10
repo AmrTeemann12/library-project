@@ -1,13 +1,368 @@
-.cards {
+/**
+* @license
+*
+* Font Family: Chillax
+* Designed by: Manushi Parikh
+* URL: https://www.fontshare.com/fonts/chillax
+* © 2026 Indian Type Foundry
+*/
+
+@font-face {
+  font-family: 'Chillax';
+  src: url('fonts/Chillax-Variable.woff2') format('woff2'),
+       url('fonts/Chillax-Variable.woff') format('woff'),
+       url('fonts/Chillax-Variable.ttf') format('truetype');
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Telma';
+  src: url('fonts/Telma-Medium.woff2') format('woff2'),
+       url('fonts/Telma-Medium.woff') format('woff'),
+       url('fonts/Telma-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
+  font-style: normal;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+*:not(dialog) {
+    margin: 0;
+}
+
+input,
+button {
+    font-family: inherit;
+    font-size: 100%;
+}
+
+:root {
+    --ff-primary: Chillax, 'Courier New', Courier, system-ui, monospace;
+    --ff-secondary: Telma, "Brush Script MT", "Segoe Script", "Lucida Handwriting", "URW Chancery L", "Apple Chancery", cursive, system-ui;
+    --text-xs: 0.75rem;
+    --text-s: 0.825rem;
+    --text-base: 1rem;
+    --text-m: 1.125rem;
+    --text-l: 1.33rem;
+    --text-xl-header: 3rem;
+    --fw-normal: 400;
+    --fw-semibold: 500;
+    --fw-bold: 700;
+
+    --clr-text-primary: #d4d4d4;
+    --clr-text-primary-dim: #adadad;
+    --clr-text-secondary: #292929;
+
+    --clr-bg: #DDA15E;
+    --clr-primary: #606C38;
+    --clr-secondary: #283618;
+    --clr-tertiary: #99582A;
+    --clr-hover: #BB9457;
+    --clr-error: #df3f26;
+    --clr-warn: #ee6e5a;
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 16px;
+    --space-4: 32px;
+    --space-5: 64px;
+    --gap: 16px;
+
+    --card-box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.219);
+
+}
+
+body {
+    font-family: var(--ff-primary);
+    font-weight: var(--fw-normal);
+    color: var(--clr-text-primary);
+    background-color: var(--clr-bg);
+}
+
+header {
+    position: relative;
+    color: var(--clr-bg);
+    background-color: var(--clr-primary);
+    padding: var(--space-2) var(--space-3);
+    box-shadow: 0px 2px 6px 1px rgba(0, 0, 0, 0.151);
+}
+
+h1 {
+    font-size: var(--text-xl-header);
+    font-weight: var(--fw-bold);
+}
+
+.open-btn-container {
+    background-color: var(--clr-tertiary);
+    width: 100%;
+    padding: var(--space-3);
+}
+
+.open-dialog {
+    color: var(--clr-text-secondary);
+    font-weight: var(--fw-semibold);
+    background-color: var(--clr-bg);
+    border: none;
+    border-radius: 1.5em;
+    padding: var(--space-2);
+    cursor: pointer;
+    transition:
+     background-color 0.3s ease,
+     outline 0.2s ease;
+}
+
+.open-dialog:hover,
+.open-dialog:focus {
+    background-color: var(--clr-hover);
+    outline: 1px solid var(--clr-primary);
+}
+
+.open-dialog:active {
+    background-color: var(--clr-primary);
+}
+
+dialog {
+    position: relative;
+    color: var(--clr-text-secondary);
+    width: 300px;
+    padding: var(--space-3);
+    padding-top: var(--space-4);
+    background-color: var(--clr-bg);
+    border: 2px solid var(--clr-primary);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+dialog::backdrop {
+    backdrop-filter: blur(1px);
+}
+
+dialog .close-dialog {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    display: inline-flex;
+}
+
+dialog .icon{
+    width: 30px;
+    fill: var(--clr-primary);
+}
+
+dialog .icon:hover {
+    fill: var(--clr-secondary)
+}
+
+.error-container {
+    width: 100%;
+    display: none;
+    grid-template-columns: min-content auto;
+    align-items: center;
+    gap: var(--gap);
+    background-color: var(--clr-warn);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.error-container svg{
+    fill: var(--clr-error);
+}
+
+.error-message {
+    overflow-wrap: anywhere;
+    display: inline;
+    color: var(--clr-text-primary);
+    font-weight: var(--fw-semibold);
+    margin: 0 var(--space-1);
+}
+
+.error-container.active {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+h2 {
+    font-size: var(--text-l);
+    font-weight: var(--fw-bold);
+}
+
+.form-control label {
+    display: block;
+}
+
+.form-control input {
+    width: 220px;
+    padding: var(--space-1);
+    border-radius: 8px;
+    border: none;
+    background-color: var(--clr-hover);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.form-control input:focus {
+    outline: 2px solid var(--clr-primary);
+}
+
+.form-control input:user-invalid {
+    outline: 2px solid var(--clr-warn);
+}
+
+.radio-field {
+    margin-top: var(--space-3);
+    border: none;
+}
+
+.radio-field legend {
+    font-size: var(--text-m);
+    font-weight: var(--fw-semibold);
+}
+
+.radio-field ul,
+.radio-field li {
+    list-style: none;
+}
+
+/*custom radio style*/
+input[type="radio"] {
+    appearance: none;
+    width: 1.1em;
+    height: 1.1em;
+    border: 2px solid var(--clr-primary);
+    border-radius: 50%;
+    background-color: var(--clr-bg);
+    vertical-align: middle;
+    transition: all 0.4s ease;
+}
+
+input[type="radio"]:checked {
+    background-color: #ee6e5a;
+    box-shadow: inset 0 0 0 2px var(--clr-bg); /*this Creates the inner dot*/
+}
+
+.add-book {
+    display: block;
+    width: 90%;
+    margin: var(--space-1) auto;
+    padding: var(--space-2);
+    border-radius: 1.5em;
+    border: none;
+    background-color: var(--clr-primary);
+    color: var(--clr-bg);
+    font-weight: var(--fw-semibold);
+    cursor: pointer;
+}
+
+.add-book:hover {
+    background-color: var(--clr-secondary);
+}
+
+button{
+    background-color: transparent;
+    border: 1px solid var(--clr-text-primary);
+}
+
+.library {
+    padding: var(--space-3);
+    width: min(95%, 1200px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--gap);
 }
 
 .card {
-    padding: 10px;
-    border: 1px solid black;
-    margin: 10px;
+    padding: var(--space-3);
+    background-color: var(--clr-secondary);
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: calc(var(--gap)/3);
+    box-shadow: var(--card-box-shadow);
 }
+
+.card > span {
+    text-align: center;
+}
+
+.title-span {
+    font-size: var(--text-l);
+    font-weight: var(--fw-bold);
+}
+
+.author-span {
+    font-size: var(--text-m);
+    font-family: var(--ff-secondary);
+}
+
+.pages-span {
+    color: var(--clr-text-primary-dim);
+}
+
+.status-btn {
+    font-size: var(--text-base);
+    font-weight: var(--fw-semibold);
+    position: relative;
+    margin-top: auto;
+    padding: var(--space-1) var(--space-2);
+    color: var(--clr-text-primary);
+    border: none;
+    border-radius: 1.5em;
+    cursor: pointer;
+}
+
+.finished {
+    background-color: var(--clr-primary);
+}
+
+.not-started {
+    background-color: var(--clr-error);
+}
+
+.in-progress {
+    background-color: var(--clr-tertiary);
+}
+
+.status-btn::before {
+    position: relative;
+    left: -3px;
+    content: '⬤';
+    color: var(--clr-text-primary);
+}
+
+.remove-btn {
+    padding: var(--space-2);
+    margin-top: var(--space-2);
+    background-color: var(--clr-warn);
+    color: var(--clr-text-secondary);
+    font-weight: var(--fw-semibold);
+    border: none;
+    border-radius: 1.5em;
+    width: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+    background-color: var(--clr-error);
+}
+
