@@ -325,6 +325,9 @@ button{
 }
 
 .status-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: var(--text-base);
     font-weight: var(--fw-semibold);
     position: relative;
@@ -350,10 +353,12 @@ button{
 
 .status-btn::before {
     position: relative;
-    left: -3px;
-    content: '⬤';
-    vertical-align: middle;
-    color: var(--clr-text-primary);
+    display: block;
+    content: '';
+    width: 1em;
+    height: 1em;
+    background-color: var(--clr-text-primary);
+    border-radius: 50%;
 }
 
 .remove-btn {
