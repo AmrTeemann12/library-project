@@ -206,7 +206,7 @@ h2 {
     background-color: var(--clr-hover);
 }
 
-/* Chrome, Safari, Edge, Opera */
+/*hide the spinner Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -286,7 +286,8 @@ button{
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--gap);
+    grid-auto-rows: 1fr;
+    gap: calc(var(--gap)*1.5);
 }
 
 .card {
@@ -300,8 +301,13 @@ button{
     box-shadow: var(--card-box-shadow);
 }
 
+.card:nth-child(even){
+    background-color: var(--clr-tertiary);
+}
+
 .card > span {
     text-align: center;
+    overflow-wrap: anywhere;
 }
 
 .title-span {
@@ -339,13 +345,14 @@ button{
 }
 
 .in-progress {
-    background-color: var(--clr-tertiary);
+    background-color:#97733a ;
 }
 
 .status-btn::before {
     position: relative;
     left: -3px;
     content: '⬤';
+    vertical-align: middle;
     color: var(--clr-text-primary);
 }
 
