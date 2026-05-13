@@ -7,16 +7,18 @@ const form = document.querySelector('#book-form');
 const errorDiv = document.querySelector('.error-container');
 const errorPara = document.querySelector('.error-message');
 
-function Book(title, author, pages, status) {
-    if(!new.target){
-        throw Error ('use "new" keyword for constructor invocation')
-    }
+class Book {
+    constructor(title, author, pages, status){
+        if(!new.target){
+            throw Error ('use "new" keyword for constructor invocation')
+        }
 
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.status = status;
-    this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.status = status;
+        this.id = crypto.randomUUID();
+    }
 }
 
 function addBookToLibrary (book){
