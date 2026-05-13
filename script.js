@@ -90,6 +90,7 @@ function displayBooks (library){
         removeBtn.addEventListener('click', (e) => {
             const cardId = e.target.parentElement.dataset.id;
             removeBook(cardId);
+            e.target.parentElement.remove()
         })
 
         libraryElem.appendChild(card);
@@ -102,9 +103,6 @@ function removeBook (id){
     const index = myLibrary.findIndex(book => book.id === id);
     if (index !== -1){
         myLibrary.splice(index, 1);
-
-        const bookRemoved = new CustomEvent('update');
-        libraryElem.dispatchEvent(bookRemoved);
     }
 }
 
