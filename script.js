@@ -30,12 +30,13 @@ function addBookToLibrary (book){
             repeated = true;
         }
     })
-    if (repeated) return;
+    if (repeated) return false;
 
     myLibrary.push(book);
 
     const bookAdded = new CustomEvent("update");
     libraryElem.dispatchEvent(bookAdded);
+    return true;
 }
 
 function displayBooks (library){
@@ -106,37 +107,6 @@ function removeBook (id){
     }
 }
 
-libraryElem.addEventListener('update', () => displayBooks(myLibrary))
-
-closeDialog.addEventListener('click', resetForm)
-
-addBookBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    const initialLibrary = myLibrary.length;
-    
-    if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-    }
-
-    const newTitle = document.querySelector('#title').value;
-    const newAuthor = document.querySelector('#author').value;
-    const newPages = document.querySelector('#pages').value;
-    const newStatus = document.querySelector('input[name="status"]:checked').value;
-
-    const newBook = new Book(newTitle, newAuthor, newPages, newStatus);
-    addBookToLibrary(newBook);
-
-    if(myLibrary.length === initialLibrary){
-        showError(`${newTitle} by ${newAuthor} already exists`);
-        return;
-    }
-
-    resetForm();
-    dialog.close();
-})
-
 function resetForm (){
     errorDiv.classList.remove('active')
     errorPara.textContent = '';
@@ -147,6 +117,50 @@ function showError (message){
     errorDiv.classList.add('active')
     errorPara.textContent = '';
     errorPara.textContent = message;
+}
+
+libraryElem.addEventListener('update', () => displayBooks(myLibrary))
+
+closeDialog.addEventListener('click', resetForm)
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+        const invalidElm = form.querySelector(':invalid');
+        
+        setValidity(invalidElm);
+        form.reportValidity();
+        return;
+    }
+
+    const newTitle = document.querySelector('#title').value;
+    const newAuthor = document.querySelector('#author').value;
+    const newPages = document.querySelector('#pages').value;
+    const newStatus = document.querySelector('input[name="status"]:checked').value;
+
+    const newBook = new Book(newTitle, newAuthor, newPages, newStatus);
+
+    if(!addBookToLibrary(newBook)){
+        showError(`${newTitle} by ${newAuthor} already exists`);
+        return;
+    }
+
+    dialog.close();
+    resetForm();
+});
+
+form.addEventListener('input', (e) => {
+    e.target.setCustomValidity('');
+})
+
+function setValidity(elm) {
+    if(elm.validity.valueMissing) {
+        elm.setCustomValidity(`The ${elm.name} field must be filled`);
+    } else if(elm.validity.rangeUnderflow) {
+        elm.setCustomValidity(`The minimum value for ${elm.name} is ${elm.min}`);
+    } else if(elm.validity.rangeOverflow) {
+        elm.setCustomValidity(`The maximum value for ${elm.name} is ${elm.max}`);
+    }
 }
 
 const book1 = new Book('Tea Types and Methods', 'Tea Sage', 212, 'finished');
